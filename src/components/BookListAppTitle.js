@@ -1,13 +1,9 @@
 import React from 'react';
 
-const BookListAppTitle = ({ title, author, _id }) => {
+const BookListAppTitle = ({ title }) => {
   return (
-    <div className="book-list_item">
-        <h2> {title} </h2>
-        <p> {author} </p>
-        <p> {_id} </p>
-    </div>
-  )
+    <h1>{title}</h1>
+  );
 }
 
 export default BookListAppTitle;

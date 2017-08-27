@@ -1,22 +1,13 @@
 import React from 'react';
-import BookListAppTitle from './BookListAppTitle';
 
-const BookList = (props) => {
+const BookFilterInput = ({ filterInputChange }) => {
   return (
-    <div className = "bookList_container" >
-      {
-        props.books.map( (books) => {
-          return (
-            <BookListAppTitle
-              title={books.title}
-              author={books.author}
-              key={books._id}
-            />
-          )
-        })
-      }
+    <div className="book-filter">
+      <label htmlFor="book-filter">Filter Books</label>
+      <br />
+      <input id="book-filter" type="text" onChange={filterInputChange}/>
     </div>
   )
 }
 
-export default BookList;
+export default BookFilterInput;

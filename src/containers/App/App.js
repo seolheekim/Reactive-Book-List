@@ -1,90 +1,59 @@
 import React, { Component } from 'react';
-import BookFilterInput from '../../components/BookFilterInput';
-import './App.css';
 import {getBooksFromFakeXHR, addBookToFakeXHR} from '../../lib/books.db';
+import BookFilterInput from '../../components/BookFilterInput';
+import BookListAppTitle from '../../components/BookListAppTitle';
+import BookList from '../BookList';
+import NewBookForm from '../NewBookForm';
+import './App.css';
 
 
 class App extends Component {
-  constructor() {
-    super()
-  }
-
   componentWillMount(){
-    // set initial state
+    // initial state
     this.setState({
-      books: []
-    })
-  }
-
-  componentDidMount(){
+      books: [],
+      bookFilterText: ''
+    });
 
     getBooksFromFakeXHR()
-    .then( (books) => {
-      this.setState({
-        books: books
+      .then( books => {
+        this.setState({
+          books: books
+        })
       })
-        console.log("GETBOOK function", books)
-      })
-      .catch( (err) => {
+      .catch(err => {
         console.log(err)
       })
-
   }
 
-  handleTitleChange(c) {
+  handleFilterInputChange(e){
     this.setState({
-      bookTitle: c.target.value
-    })
-
-  }
-
-  handleAuthorChange(c) {
-    this.setState({
-      bookAuthor: c.target.value
-    })
-
-  }
-
-
-  handleBookSubmit() {
-    // console.log("THIS IS THE TITLE: ", this.state.bookTitle)
-    // console.log("THIS IS THE AUTHOR: ", this.state.bookAuthor)
-
-    let newBooks = {
-      title: this.state.bookTitle,
-      author: this.state.bookAuthor
-    }
-    this.setState({
-      books: [...this.state.books, newBooks]
+      bookFilterText: e.target.value
     })
   }
 
   render() {
     return (
       <div>
-         <div className="book-form">
-            <input
-              type='text'
-              name='title'
-              placeholder='BOOK TITLE'
-              onChange={this.handleTitleChange.bind(this)}
-            />
-            <br />
-            <input
-              type="text"
-              name="author"
-              placeholder="AUTHOR OF THE BOOK"
-              onChange={this.handleAuthorChange.bind(this)}
-            />
-          <br />
-          <button onClick={this.handleBookSubmit.bind(this)}>Submit</button>
-        </div>
+        <BookListAppTitle
+          title=" Book List Title "
+        />
 
       <BookFilterInput
+        filterInputChange={this.handleFilterInputChange.bind(this)}
+      />
+
+      <BookList
+        filter={this.state.bookFilterText}
         books={this.state.books}
       />
+
+      <NewBookForm
+
+      />
+
       </div>
-    )
+    );
   }
 }
 
