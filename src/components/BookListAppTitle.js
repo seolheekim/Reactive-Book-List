@@ -7,3 +7,4 @@ const BookListAppTitle = ({ title }) => {
 }
 
 export default BookListAppTitle;
+

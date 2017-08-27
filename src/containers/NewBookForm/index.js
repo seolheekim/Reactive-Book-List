@@ -1,7 +1,25 @@
 import React, { Component } from 'react';
+import {getBooksFromFakeXHR, addBookToFakeXHR} from '../../lib/books.db';
 import Book from '../../components/Book';
 
 class NewBookForm extends Component {
+
+  componentWillMount() {
+    this.setState({
+      bookTitle: '',
+      bookAuthor: ''
+    })
+    addBookToFakeXHR()
+    .then( newBook => {
+      this.setState({
+        newBook: newBook
+      })
+    })
+    .catch( err => {
+      console.log(err)
+    })
+
+  }
 
   handleTitleChange(c) {
     this.setState({
@@ -22,9 +40,7 @@ class NewBookForm extends Component {
       title: this.state.bookTitle,
       author: this.state.bookAuthor
     }
-    this.setState({
-      books: [...this.state.books, newBooks]
-    })
+
   }
 
   render() {

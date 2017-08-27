@@ -49,7 +49,7 @@ class App extends Component {
       />
 
       <NewBookForm
-
+        books={this.state.books}
       />
 
       </div>
