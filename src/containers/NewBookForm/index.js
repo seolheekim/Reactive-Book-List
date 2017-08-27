@@ -9,16 +9,6 @@ class NewBookForm extends Component {
       bookTitle: '',
       bookAuthor: ''
     })
-    addBookToFakeXHR()
-    .then( newBook => {
-      this.setState({
-        newBook: newBook
-      })
-    })
-    .catch( err => {
-      console.log(err)
-    })
-
   }
 
   handleTitleChange(c) {
@@ -33,14 +23,12 @@ class NewBookForm extends Component {
     })
   }
 
-
   handleBookSubmit() {
-
     let newBooks = {
       title: this.state.bookTitle,
       author: this.state.bookAuthor
     }
-
+    this.props.addBook(newBooks)
   }
 
   render() {
@@ -64,6 +52,7 @@ class NewBookForm extends Component {
         </div>
         <button onClick={this.handleBookSubmit.bind(this)}>Submit</button>
       </div>
+
     )
   }
 }

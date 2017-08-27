@@ -32,26 +32,45 @@ class App extends Component {
     })
   }
 
+  addBook(book){
+    addBookToFakeXHR(book)
+    .then( book => {
+      this.setState({
+        book:book,
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+
   render() {
     return (
       <div>
-        <BookListAppTitle
-          title=" Book List Title "
-        />
+        <div className="container_1">
+          <div className="title">
+            <BookListAppTitle
+              title=" Book List Title "
+            />
+          </div>
+          <BookFilterInput
+            filterInputChange={this.handleFilterInputChange.bind(this)}
+          />
+        </div>
 
-      <BookFilterInput
-        filterInputChange={this.handleFilterInputChange.bind(this)}
-      />
+        <div className="container_2">
+          <BookList
+            filter={this.state.bookFilterText}
+            books={this.state.books}
+          />
+        </div>
 
-      <BookList
-        filter={this.state.bookFilterText}
-        books={this.state.books}
-      />
-
-      <NewBookForm
-        books={this.state.books}
-      />
-
+        <div className="container_3">
+          <h2> SUBMIT NEW BOOK</h2>
+          <NewBookForm
+            addBook={this.addBook.bind(this)}
+          />
+        </div>
       </div>
     );
   }
